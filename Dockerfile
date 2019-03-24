@@ -2,10 +2,11 @@ FROM ubuntu:18.04
 
 MAINTAINER Kamil Sladowski <kamil.sladowski@gmail.com>
 
-RUN useradd ujot --create-home
+RUN useradd ujot --create-home 
 
-RUN apt-get update
-RUN apt-get install -y vim unzip curl git wget ca-certificates
+
+RUN apt-get update && \
+    apt-get install -y vim unzip curl git wget ca-certificates
 
 
 #Java
@@ -13,21 +14,17 @@ RUN apt-get install -y vim unzip curl git wget ca-certificates
 RUN apt-get install -y openjdk-8-jdk && \
     apt-get clean;
     
-# Fix certificate issues
-    
 RUN apt-get install ca-certificates-java && \
     apt-get clean && \
     update-ca-certificates -f;
-
-    
 
 # Setup JAVA_HOME -- useful for docker commandline
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
 
 #Scala
-ENV SCALA_VERSION=2.12.8 \
-    SCALA_HOME=/usr/share/scala
+ENV SCALA_VERSION=2.12.8
+ENV SCALA_HOME=/usr/share/scala
 
 RUN cd "/tmp" && \
     wget "https://downloads.typesafe.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz" && \
@@ -47,9 +44,10 @@ RUN \
   dpkg -i sbt-$SBT_VERSION.deb && \
   rm sbt-$SBT_VERSION.deb && \
   apt-get install sbt && \
-  sbt sbtVersion
+  sbt sbtVersion && \ 
+  sbt clean 
 
 
-USER ujot
 
 CMD echo "Hello World"
+
