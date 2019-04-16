@@ -32,8 +32,7 @@ CREATE TABLE `passwords` (
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `login` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin2 COLLATE=latin2_bin;
 
@@ -104,6 +103,7 @@ CREATE TABLE `product` (
 ALTER TABLE `purchase` ADD CONSTRAINT `purchase_const` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
 ALTER TABLE `product` ADD CONSTRAINT `category_const` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 ALTER TABLE `passwords` ADD CONSTRAINT `username_const` FOREIGN KEY (`name`) REFERENCES `user` (`name`);
+ALTER TABLE `admin` ADD CONSTRAINT `admin_name_const` FOREIGN KEY (`name`) REFERENCES `passwords` (`name`);
 
 
 
