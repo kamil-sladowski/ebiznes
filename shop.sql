@@ -89,17 +89,6 @@ CREATE TABLE `purchase` (
 
 
 
-
-DROP TABLE IF EXISTS `product`;
-CREATE TABLE `product` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `category_id` int NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `amount` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin2 COLLATE=latin2_bin;
-
-
 ALTER TABLE `purchase` ADD CONSTRAINT `purchase_const` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
 ALTER TABLE `product` ADD CONSTRAINT `category_const` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 ALTER TABLE `passwords` ADD CONSTRAINT `username_const` FOREIGN KEY (`name`) REFERENCES `user` (`name`);
